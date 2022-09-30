@@ -1,3 +1,76 @@
 {
-  "extends": "next/core-web-vitals"
+	"root": true,
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaVersion": "latest",
+		"sourceType": "module"
+	},
+	"plugins": [
+		"@typescript-eslint"
+	],
+	"extends": [
+		"next/core-web-vitals",
+		"plugin:@typescript-eslint/recommended"
+	],
+	"rules": {
+		"@typescript-eslint/no-non-null-assertion": "off",
+		"@typescript-eslint/no-explicit-any": [
+			"warn",
+			{
+				"ignoreRestArgs": true
+			}
+		],
+		"@typescript-eslint/indent": [
+			"warn",
+			2,
+			{
+				"SwitchCase": 1,
+				"MemberExpression": 1
+			}
+		],
+		"arrow-body-style": "off",
+		"capitalized-comments": "off",
+		"comma-dangle": [
+			"warn",
+			"never"
+		],
+		"no-mixed-spaces-and-tabs": [
+			"warn"
+		],
+		"indent": "off",
+		"max-params": [
+			"warn",
+			5
+		],
+		"multiline-ternary": [
+			"warn",
+			"always-multiline"
+		],
+		"no-console": "warn",
+		"no-negated-condition": "off",
+		"object-curly-spacing": [
+			"warn",
+			"always"
+		],
+		"operator-linebreak": [
+			"warn",
+			"after"
+		],
+		"semi": [
+			"warn",
+			"never"
+		],
+		"jsx-quotes": [
+			"warn",
+			"prefer-double"
+		],
+		"quotes": [
+			"warn",
+			"single",
+			{
+				"avoidEscape": true,
+				"allowTemplateLiterals": true
+			}
+		]
+	}
 }
