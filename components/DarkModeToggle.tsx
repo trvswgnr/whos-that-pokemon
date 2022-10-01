@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Button } from './Button'
 
-export const useDarkMode = () => {
+const useDarkMode = () => {
   const [darkMode, setDarkMode] = useState(false)
 
   useEffect(() => {
@@ -47,3 +47,5 @@ export const DarkModeToggle = () => {
     </Button>
   )
 }
+
+export default DarkModeToggle
