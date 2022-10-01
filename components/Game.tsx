@@ -3,6 +3,7 @@ import colors from 'tailwindcss/colors'
 import { isCloseMatch } from '../lib/compareStrings'
 import Results from './Results'
 import Guess from './Guess'
+import { CanvasRenderingContext2D } from 'context-filter-polyfill'
 
 interface GameProps {
   pokemon: Pokemon
