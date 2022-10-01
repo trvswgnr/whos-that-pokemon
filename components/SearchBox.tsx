@@ -1,3 +1,4 @@
+import type { PropsWithoutRef, JSXElementConstructor } from 'react'
 import Turnstone from 'turnstone'
 // import recentSearchesPlugin from 'turnstone-recent-searches'
 import pokemon from '../data/pokemon151'
@@ -18,7 +19,7 @@ const styles = {
 
 const listbox = {
   displayField: 'characters',
-  data: async (query) => {
+  data: async (query: string) => {
     const results = pokemon.filter((pokemon) => {
       const name = pokemon.name.toLowerCase()
       query = query.toLowerCase()
@@ -29,7 +30,7 @@ const listbox = {
   // searchType: 'startsWith'
 }
 
-const Item = ({ item }) => {
+const Item = ({ item }: { item: { id: number, name: string } }) => {
   return (
     <div className="flex items-center cursor-pointer px-5 py-4">
       <p>{item.name}</p>
@@ -37,7 +38,7 @@ const Item = ({ item }) => {
   )
 }
 
-const SearchBox = ({ onChange }) => {
+const SearchBox = ({ onChange }: PropsWithoutRef<{ onChange: (value: string) => void }>) => {
   return (
     <div className="relative h-12 w-full">
       <div className="absolute w-full">
@@ -56,8 +57,8 @@ const SearchBox = ({ onChange }) => {
           styles={styles}
           Item={Item}
           onChange={onChange}
-          // plugins={[recentSearchesPlugin]}
-          // text='Iron M'
+        // plugins={[recentSearchesPlugin]}
+        // text='Iron M'
         />
       </div>
     </div>
