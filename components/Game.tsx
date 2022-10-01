@@ -12,6 +12,7 @@ interface GameProps {
 
 export default function Game(props: GameProps) {
   const { pokemon, error, reset } = props
+
   const [submitted, setSubmitted] = useState(false)
   const [nameInput, setNameInput] = useState('')
   const [isCorrect, setIsCorrect] = useState(false)
@@ -35,7 +36,7 @@ export default function Game(props: GameProps) {
     async function polyfill() {
       await import('context-filter-polyfill')
     }
-    polyfill().catch((err) => console.error(err))
+
     if (!canvasRef.current) {
       return
     }
@@ -53,34 +54,36 @@ export default function Game(props: GameProps) {
     }
 
     function draw(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, img: HTMLImageElement) {
-      const dArr = [-1, -1, 0, -1, 1, -1, -1, 0, 1, 0, -1, 1, 0, 1, 1, 1] // offset array
-      const strokeWidth = 4
-      const x = 0
-      const y = 0
+      // const dArr = [-1, -1, 0, -1, 1, -1, -1, 0, 1, 0, -1, 1, 0, 1, 1, 1] // offset array
+      // const strokeWidth = 4
+      // const x = 0
+      // const y = 0
 
-      // draw images at offsets from the array scaled by strokeWidth
-      for (let i = 0; i < dArr.length; i += 2) {
-        ctx.drawImage(img, x + dArr[i] * strokeWidth, y + dArr[i + 1] * strokeWidth)
-      }
+      // // draw images at offsets from the array scaled by strokeWidth
+      // for (let i = 0; i < dArr.length; i += 2) {
+      //   ctx.drawImage(img, x + dArr[i] * strokeWidth, y + dArr[i + 1] * strokeWidth)
+      // }
 
-      let strokeColor: string = colors.white
+      // let strokeColor: string = colors.white
 
-      if (submitted) {
-        strokeColor = isCorrect ? colors.green['400'] : colors.red['600']
-      }
+      // if (submitted) {
+      //   strokeColor = isCorrect ? colors.green['400'] : colors.red['600']
+      // }
 
-      // fill with color
-      ctx.globalCompositeOperation = 'source-in'
-      ctx.fillStyle = strokeColor
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      // // fill with color
+      // ctx.globalCompositeOperation = 'source-in'
+      // ctx.fillStyle = strokeColor
+      // ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-      // draw original image in normal mode
-      ctx.globalCompositeOperation = 'source-over'
+      // // draw original image in normal mode
+      // ctx.globalCompositeOperation = 'source-over'
 
-      const filter = submitted ? 'brightness(1)' : 'brightness(0)'
+      polyfill().then(() => {
+        const filter = submitted ? 'brightness(1)' : 'brightness(0)'
 
-      ctx.filter = filter
-      ctx.drawImage(img, x, y)
+        ctx.filter = filter
+        ctx.drawImage(img, 0, 0)
+      })
     }
   }, [submitted, isCorrect, sprites])
 
