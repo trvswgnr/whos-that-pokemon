@@ -3,7 +3,6 @@ import colors from 'tailwindcss/colors'
 import { isCloseMatch } from '../lib/compareStrings'
 import Results from './Results'
 import Guess from './Guess'
-import { CanvasRenderingContext2D } from 'context-filter-polyfill'
 
 interface GameProps {
   pokemon: Pokemon
@@ -33,6 +32,10 @@ export default function Game(props: GameProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
+    async function polyfill() {
+      await import('context-filter-polyfill')
+    }
+    polyfill().catch((err) => console.error(err))
     if (!canvasRef.current) {
       return
     }
