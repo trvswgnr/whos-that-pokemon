@@ -1,6 +1,4 @@
-import type { PropsWithoutRef, JSXElementConstructor } from 'react'
 import Turnstone from 'turnstone'
-// import recentSearchesPlugin from 'turnstone-recent-searches'
 import pokemon from '../data/pokemon151'
 import { isCloseMatch } from '../lib/compareStrings'
 
@@ -10,8 +8,7 @@ const styles = {
   highlightedItem: 'bg-neutral-800',
   query: 'text-oldsilver-800 placeholder:text-slate-400',
   typeahead: 'text-slate-500',
-  clearButton:
-    'absolute inset-y-0 text-lg right-0 w-10 inline-flex items-center justify-center bg-netural-700 hover:text-red-500',
+  clearButton: 'absolute inset-y-0 text-lg right-0 w-10 inline-flex items-center justify-center bg-netural-700 hover:text-red-500',
   noItems: 'cursor-default text-center my-20',
   match: 'font-semibold',
   groupHeading: 'px-5 py-3 text-pink-500'
@@ -30,7 +27,7 @@ const listbox = {
   // searchType: 'startsWith'
 }
 
-const Item = ({ item }: { item: { id: number, name: string } }) => {
+const Item: React.FC<{ item: { id: number, name: string } }> = ({ item }) => {
   return (
     <div className="flex items-center cursor-pointer px-5 py-4">
       <p>{item.name}</p>
@@ -38,7 +35,7 @@ const Item = ({ item }: { item: { id: number, name: string } }) => {
   )
 }
 
-const SearchBox = ({ onChange }: PropsWithoutRef<{ onChange: (value: string) => void }>) => {
+const SearchBox = ({ onChange }: React.PropsWithoutRef<{ onChange: (value: string) => void }>) => {
   return (
     <div className="relative h-12 w-full">
       <div className="absolute w-full">
