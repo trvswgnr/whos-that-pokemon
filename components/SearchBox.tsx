@@ -15,11 +15,11 @@ const styles = {
 }
 
 const listbox = {
-  displayField: 'characters',
-  data: async (query: string) => {
+  displayField: 'pokemon',
+  data: async (input: string) => {
     const results = pokemon.filter((pokemon) => {
       const name = pokemon.name.toLowerCase()
-      query = query.toLowerCase()
+      const query = input.toLowerCase()
       return isCloseMatch(query, name) || name.includes(query)
     })
     return results

@@ -1,3 +1,6 @@
+/**
+ * Determines whether a string is similar enough to another string to be considered a match.
+ */
 export function isCloseMatch(a: string, b: string, threshold = 0.8): boolean {
   return jaroWinkler(a, b) > threshold
 }
@@ -20,6 +23,10 @@ export function jaroWinkler(a: string, b: string): number {
   return jw
 }
 
+/**
+ * Returns an array with the number of matches, transpositions,
+ * prefix length, and the number of prefix matches.
+ */
 function matches(a: string, b: string): number[] {
   const range = Math.floor(Math.max(a.length, b.length) / 2) - 1
   const rangeFloor = Math.floor(range)
@@ -50,7 +57,7 @@ function matches(a: string, b: string): number[] {
     i1 = ms1.indexOf(true, i1 + 1)
     i2 = ms2.indexOf(true, i2 + 1)
   }
-  const prefixLength: number = _prefixLength(a, b)
+  const prefixLength: number = getPrefixLength(a, b)
 
   return [
     ms1.filter(Boolean).length,
@@ -60,7 +67,11 @@ function matches(a: string, b: string): number[] {
   ]
 }
 
-function _prefixLength(a: string, b: string): number {
+/**
+ * Returns the length of the matching prefix between two strings.
+ * The prefix length is the number of matching characters at the start of the string.
+ */
+function getPrefixLength(a: string, b: string): number {
   let n = 0
   const min = Math.min(4, Math.min(a.length, b.length))
 
