@@ -10,6 +10,20 @@ interface GameProps {
   reset: MouseEventHandler<HTMLButtonElement> | (() => void)
 }
 
+interface DrawProps {
+  canvas: HTMLCanvasElement
+  image: HTMLImageElement
+}
+
+interface DrawStrokeProps extends DrawProps {
+  width: number
+  color: string
+}
+
+interface DrawFillProps extends DrawProps {
+  color: string | CanvasGradient | CanvasPattern
+}
+
 export default function Game(props: GameProps) {
   const { pokemon, error, reset } = props
 
@@ -30,60 +44,83 @@ export default function Game(props: GameProps) {
     throw new Error('No sprites found for pokemon with ID: ' + id)
   }
 
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const canvasStrokeRef = useRef<HTMLCanvasElement>(null)
+  const canvasFillRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
-    async function polyfill() {
-      await import('context-filter-polyfill')
-    }
-
-    if (!canvasRef.current) {
+    if (!canvasStrokeRef.current || !canvasFillRef.current) {
       return
     }
-    const canvas = canvasRef.current
+    const canvasStroke = canvasStrokeRef.current
+    const canvasFill = canvasFillRef.current
     const image: string = sprites['official-artwork'].front_default
 
     const img = new Image()
-    img.src = image
 
     img.onload = () => {
-      canvas.height = img.height
-      canvas.width = img.width
+      canvasStroke.height = img.height
+      canvasStroke.width = img.width
+      canvasFill.height = img.height
+      canvasFill.width = img.width
+
+      let strokeColor: string = colors.white
+      let fillColor: string = colors.black
+
+      if (submitted) {
+        strokeColor = isCorrect ? colors.green['400'] : colors.red['600']
+        fillColor = colors.transparent
+      }
+
+      drawStroke({
+        canvas:canvasStroke,
+        image: img,
+        width: 3,
+        color: strokeColor
+      })
+
+      drawFill({
+        canvas: canvasFill,
+        image: img,
+        color: fillColor
+      })
+    }
+    img.src = image
+
+    /**
+     * Uses the image data to draw a stroke on the canvas
+     */
+    function drawStroke(props: DrawStrokeProps) {
+      const { canvas, image, color, width } = props
       const context = canvas.getContext('2d')!
-      draw(context, canvas, img)
+
+      context.shadowColor = color
+      context.shadowBlur = 0
+
+      // X offset loop
+      for (let x = -width; x <= width; x++) {
+        // Y offset loop
+        for (let y = -width; y <= width; y++) {
+          // set shadow offset
+          context.shadowOffsetX = x
+          context.shadowOffsetY = y
+
+          // draw image with shadow
+          context.drawImage(image, 0, 0, canvas.width, canvas.height)
+        }
+      }
     }
 
-    function draw(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, img: HTMLImageElement) {
-      // const dArr = [-1, -1, 0, -1, 1, -1, -1, 0, 1, 0, -1, 1, 0, 1, 1, 1] // offset array
-      // const strokeWidth = 4
-      // const x = 0
-      // const y = 0
+    function drawFill(props: DrawFillProps) {
+      const { canvas, image, color } = props
+      const context = canvas.getContext('2d')!
 
-      // // draw images at offsets from the array scaled by strokeWidth
-      // for (let i = 0; i < dArr.length; i += 2) {
-      //   ctx.drawImage(img, x + dArr[i] * strokeWidth, y + dArr[i + 1] * strokeWidth)
-      // }
+      // fill image
+      context.fillStyle = color
+      context.fillRect(0, 0, canvas.width, canvas.height)
 
-      // let strokeColor: string = colors.white
-
-      // if (submitted) {
-      //   strokeColor = isCorrect ? colors.green['400'] : colors.red['600']
-      // }
-
-      // // fill with color
-      // ctx.globalCompositeOperation = 'source-in'
-      // ctx.fillStyle = strokeColor
-      // ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-      // // draw original image in normal mode
-      // ctx.globalCompositeOperation = 'source-over'
-
-      polyfill().then(() => {
-        const filter = submitted ? 'brightness(1)' : 'brightness(0)'
-
-        ctx.filter = filter
-        ctx.drawImage(img, 0, 0)
-      })
+      // draw image
+      context.globalCompositeOperation = 'destination-in'
+      context.drawImage(image, 0, 0)
     }
   }, [submitted, isCorrect, sprites])
 
@@ -91,14 +128,16 @@ export default function Game(props: GameProps) {
     const guess = nameInput.toLowerCase()
     const answer = name.toLowerCase()
     const isCorrect = isCloseMatch(guess, answer, 0.85)
+
     setIsCorrect(isCorrect)
     setSubmitted(true)
   }
 
   return (
     <>
-      <div className="mb-4">
-        <canvas ref={canvasRef} width={475} height={475} className="aspect-square lg:aspect-video w-full h-full object-contain"></canvas>
+      <div className="mb-4 relative aspect-square lg:aspect-video ">
+        <canvas ref={canvasStrokeRef} width={475} height={475} className="absolute w-full h-full object-contain"></canvas>
+        <canvas ref={canvasFillRef} width={475} height={475} className="absolute w-full h-full object-contain "></canvas>
       </div>
       {
         submitted
