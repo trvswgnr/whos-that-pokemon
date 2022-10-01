@@ -6,10 +6,11 @@ export interface DrawProps {
   canvas: HTMLCanvasElement
 }
 
-export interface CanvasProps {
+export interface CanvasProps extends React.HTMLAttributes<HTMLCanvasElement> {
   draw: (props: DrawProps) => void
-  width?: number | '100%' | 'auto'
-  height?: number | '100%' | 'auto'
+  width?: number
+  height?: number
+  ref?: React.MutableRefObject<HTMLCanvasElement>
 }
 
 export default function Canvas(props: CanvasProps) {
