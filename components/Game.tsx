@@ -135,7 +135,7 @@ export default function Game(props: GameProps) {
 
   return (
     <>
-      <div className="mb-4 relative aspect-square lg:aspect-video ">
+      <div className="mb-4 relative aspect-square sm:aspect-video ">
         <canvas ref={canvasStrokeRef} width={475} height={475} className="absolute w-full h-full object-contain"></canvas>
         <canvas ref={canvasFillRef} width={475} height={475} className="absolute w-full h-full object-contain "></canvas>
       </div>

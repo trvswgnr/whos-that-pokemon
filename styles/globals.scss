@@ -1,0 +1,34 @@
+@font-face {
+  font-family: 'GarageShockCondensedHeavy';
+  src: url('../public/GarageShockCondensedHeavy.woff2') format('woff2'),
+    url('../public/GarageShockCondensedHeavy.woff') format('woff');
+  font-weight: bolder;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-display {
+    @apply font-display;
+    $stroke-width: 0.04em;
+    $stroke-width-neg: $stroke-width * -1;
+    $stroke-color: theme('colors.poke.yellow');
+    $text-color: theme('colors.poke.blue');
+
+    color: $text-color;
+    letter-spacing: -0.01875em;
+    transform: scale(1, 0.9);
+    text-shadow:
+      $stroke-width-neg $stroke-width $stroke-color, // stroke bottom left
+      $stroke-width $stroke-width $stroke-color, // stroke bottom right
+      $stroke-width-neg $stroke-width-neg $stroke-color, // stroke top left
+      $stroke-width $stroke-width-neg $stroke-color, // stroke top right
+      -0.05em -0.075em 0.01em rgba(0, 0, 0, 0.35), // shadow top left
+      -0.075em 0.15em 0.08em rgba(0, 0, 0, 0.35), // shadow bottom left
+      -0.15em 0.1em 0.08em rgba(0, 0, 0, 0.35); // shadow bottom left 2
+  }
+}
