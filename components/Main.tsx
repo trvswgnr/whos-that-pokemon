@@ -13,7 +13,7 @@ export default function Main() {
 
   if (!data || isValidating) {
     return (
-      <div className="dark:text-white">Loading...</div>
+      <div className="">Loading...</div>
     )
   }
 

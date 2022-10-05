@@ -22,12 +22,11 @@ module.exports = {
       }
     }
   },
-  darkMode: 'class',
   plugins: [
     plugin(function ({ addUtilities, theme }) {
       const textStroke = {
         '.text-stroke': {
-          '--stroke-color': 'currentColor',
+          '--stroke-color': theme('colors.black'),
           '--stroke-width': '0.05em',
           '--stroke-width-neg': 'calc(var(--stroke-width) * -1)',
 

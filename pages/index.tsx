@@ -6,7 +6,7 @@ import Burst from '../components/Burst'
 export default function Home() {
   return (
     <>
-      <div className="bg-poke-red dark:bg-slate-800 min-h-screen relative">
+      <div className="bg-poke-red min-h-screen relative">
         <div className="absolute overflow-hidden h-full w-full flex justify-center items-center">
           <div className="w-full h-auto max-w-3xl absolute md:-top-8 scale-125">
             <Burst />
