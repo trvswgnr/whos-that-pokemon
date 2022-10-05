@@ -1,8 +1,8 @@
 import useSWR, { SWRResponse } from 'swr'
-import Game from './Game'
-import fetchPokemon from '../lib/fetchPokemon'
+import { Game } from '~/components'
+import { fetchPokemon } from '../lib'
 
-export default function Main() {
+export function Main() {
   const { data, error, mutate, isValidating }: SWRResponse<Pokemon, Error> = useSWR('fetchPokemon', fetchPokemon)
 
   if (error) {

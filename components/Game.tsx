@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState, type MouseEventHandler } from 'react'
 import colors from 'tailwindcss/colors'
-import { isCloseMatch } from '../lib/compareStrings'
-import Results from './Results'
-import Guess from './Guess'
+import { isCloseMatch } from '~/lib'
+import { Results, Guess } from '~/components'
 
 interface GameProps {
   pokemon: Pokemon
@@ -24,7 +23,7 @@ interface DrawFillProps extends DrawProps {
   color: string | CanvasGradient | CanvasPattern
 }
 
-export default function Game(props: GameProps) {
+export function Game(props: GameProps) {
   const { pokemon, error, reset } = props
 
   const [submitted, setSubmitted] = useState(false)

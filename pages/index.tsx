@@ -1,7 +1,4 @@
-import Container from '../components/Container'
-import Main from '../components/Main'
-import Footer from '../components/Footer'
-import Burst from '../components/Burst'
+import { Container, Main, Footer, Burst } from '~/components'
 
 export default function Home() {
   return (

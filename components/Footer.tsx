@@ -1,7 +1,7 @@
 import React from 'react'
-import Container from './Container'
+import { Container } from '~/components'
 
-function Footer() {
+export function Footer() {
   return (
     <footer className="pt-10 pb-12 border-t bg-slate-900 border-slate-700">
       <Container className="text-center">
@@ -12,5 +12,3 @@ function Footer() {
     </footer>
   )
 }
-
-export default Footer

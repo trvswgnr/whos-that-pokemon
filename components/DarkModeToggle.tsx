@@ -47,5 +47,3 @@ export const DarkModeToggle = () => {
     </Button>
   )
 }
-
-export default DarkModeToggle

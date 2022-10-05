@@ -1,11 +1,11 @@
-import SearchBox from '../components/SearchBox'
+import { SearchBox } from '~/components'
 
 interface GuessProps {
   onChange: (value: string) => void
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-export default function Guess(props: GuessProps) {
+export function Guess(props: GuessProps) {
   const { onChange, onClick } = props
   return (
     <div className="flex justify-center items-center max-w-xl mx-auto pb-16">

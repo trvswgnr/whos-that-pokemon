@@ -1,6 +1,6 @@
 import Turnstone from 'turnstone'
-import pokemon from '../data/pokemon151'
-import { isCloseMatch } from '../lib/compareStrings'
+import pokemon from '~/data/pokemon151'
+import { isCloseMatch } from '~/lib'
 
 const styles = {
   input: 'h-12 w-full border py-2 px-4 text-lg outline-none rounded',
@@ -35,7 +35,13 @@ const Item: React.FC<{ item: { id: number, name: string } }> = ({ item }) => {
   )
 }
 
-const SearchBox = ({ onChange }: React.PropsWithoutRef<{ onChange: (value: string) => void }>) => {
+interface SearchBoxProps {
+  onChange: (value: string) => void
+}
+
+export function SearchBox(props: SearchBoxProps) {
+  const { onChange } = props
+
   return (
     <div className="relative h-12 w-full">
       <div className="absolute w-full">
@@ -62,4 +68,3 @@ const SearchBox = ({ onChange }: React.PropsWithoutRef<{ onChange: (value: strin
   )
 }
 
-export default SearchBox
