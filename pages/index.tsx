@@ -6,6 +6,7 @@ type HomeProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 export default function Home(props: HomeProps) {
   const { pokemon } = props
+
   return (
     <>
       <div className="bg-poke-red min-h-[950px] relative">
