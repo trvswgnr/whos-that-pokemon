@@ -1,23 +1,28 @@
-import useSWR, { SWRResponse } from 'swr'
 import { Game } from '~/components'
-import { fetchPokemon } from '../lib'
+import { usePokemon } from '~/hooks'
+import Image from 'next/image'
 
 export function Main() {
-  const { data, error, mutate, isValidating }: SWRResponse<Pokemon, Error> = useSWR('fetchPokemon', fetchPokemon)
+  const { data, error, reset, isValidating } = usePokemon()
 
   if (error) {
     return (
-      <div className="text-red-500">Failed to load pokémon.</div>
+      <>
+        <div className="mb-4 relative max-w-[100px] sm:max-w-[150px] m-auto">
+          <Image src="/missingno.webp" alt="Missingno" width={500} height={1167} layout="responsive" />
+        </div>
+        <p className="text-red-500">Error loading pokémon.</p>
+      </>
     )
   }
 
   if (!data || isValidating) {
     return (
-      <div className="">Loading...</div>
+      <p>Loading...</p>
     )
   }
 
   return (
-    <Game {...{ pokemon: data, error, reset: mutate }} />
+    <Game {...{ pokemon: data, error, reset }} />
   )
 }

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type MouseEventHandler } from 'react'
 import colors from 'tailwindcss/colors'
 import { isCloseMatch } from '~/lib'
 import { Results, Guess } from '~/components'
+import { useStreak } from '~/hooks'
 
 interface GameProps {
   pokemon: Pokemon
@@ -45,6 +46,8 @@ export function Game(props: GameProps) {
 
   const canvasStrokeRef = useRef<HTMLCanvasElement>(null)
   const canvasFillRef = useRef<HTMLCanvasElement>(null)
+
+  const [streak, setStreak] = useStreak()
 
   useEffect(() => {
     if (!canvasStrokeRef.current || !canvasFillRef.current) {
@@ -128,20 +131,26 @@ export function Game(props: GameProps) {
     const answer = name.toLowerCase()
     const isCorrect = isCloseMatch(guess, answer, 0.85)
 
+    if (isCorrect) {
+      setStreak(streak + 1)
+    } else {
+      setStreak(0)
+    }
+
     setIsCorrect(isCorrect)
     setSubmitted(true)
   }
 
   return (
     <>
-      <div className="mb-4 relative aspect-square sm:aspect-video ">
+      <div className="mb-4 relative aspect-square sm:aspect-video max-w-screen-sm mx-auto">
         <canvas ref={canvasStrokeRef} width={475} height={475} className="absolute w-full h-full object-contain"></canvas>
         <canvas ref={canvasFillRef} width={475} height={475} className="absolute w-full h-full object-contain "></canvas>
       </div>
       {
         submitted
           ? <Results {...{ isCorrect, name }} onClick={reset} />
-          : <Guess onChange={(e) => setNameInput(e)} onClick={judge} />
+          : <Guess onChange={setNameInput} onClick={judge} />
       }
     </>
   )
