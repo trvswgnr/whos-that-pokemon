@@ -8,7 +8,7 @@ interface MainProps {
 }
 
 export function Main(props: MainProps) {
-  let { pokemon: initialPokemon } = props
+  const { pokemon: initialPokemon } = props
   const { data: pokemon, error, reset, isValidating } = usePokemon()
   const [data, setData] = useState<Pokemon|undefined>(initialPokemon)
 
