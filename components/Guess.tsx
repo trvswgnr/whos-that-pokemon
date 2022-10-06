@@ -11,7 +11,7 @@ export function Guess(props: GuessProps) {
   const [val, setVal] = useState('')
   let hoverClasses = 'opacity-60'
   if (val) {
-    hoverClasses = 'hover:!scale-110 hover:rotate-6 hover:opacity-90'
+    hoverClasses = 'hover:!scale-110 hover:rotate-6'
   }
   return (
     <div className="flex justify-center items-center max-w-xl mx-auto pb-16">
