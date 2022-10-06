@@ -1,6 +1,11 @@
+import { InferGetServerSidePropsType } from 'next'
 import { Container, Main, Footer, Burst, StreakCount } from '~/components'
+import { fetchPokemon } from '~/lib'
 
-export default function Home() {
+type HomeProps = InferGetServerSidePropsType<typeof getServerSideProps>
+
+export default function Home(props: HomeProps) {
+  const { pokemon } = props
   return (
     <>
       <div className="bg-poke-red min-h-[950px] relative">
@@ -14,10 +19,19 @@ export default function Home() {
           <h1 className="text-display text-7xl uppercase pb-10 pt-20">
             <span className="">Who&lsquo;s that Pokémon</span>&nbsp;?
           </h1>
-          <Main />
+          <Main pokemon={pokemon} />
         </Container>
       </div>
       <Footer />
     </>
   )
+}
+
+export async function getServerSideProps() {
+  const pokemon = await fetchPokemon()
+  return {
+    props: {
+      pokemon
+    },
+  }
 }

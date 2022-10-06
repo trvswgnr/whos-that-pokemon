@@ -1,9 +1,16 @@
 import { Game } from '~/components'
 import { usePokemon } from '~/hooks'
 import Image from 'next/image'
+import { useState } from 'react'
 
-export function Main() {
-  const { data, error, reset, isValidating } = usePokemon()
+interface MainProps {
+  pokemon: Pokemon
+}
+
+export function Main(props: MainProps) {
+  let { pokemon: initialPokemon } = props
+  const { data: pokemon, error, reset, isValidating } = usePokemon()
+  const [data, setData] = useState<Pokemon|undefined>(initialPokemon)
 
   if (error) {
     return (
@@ -23,6 +30,9 @@ export function Main() {
   }
 
   return (
-    <Game {...{ pokemon: data, error, reset }} />
+    <Game {...{ pokemon: data, error }} reset={() => {
+      reset()
+      setData(pokemon)
+    }} />
   )
 }
