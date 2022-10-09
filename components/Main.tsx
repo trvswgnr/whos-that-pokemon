@@ -9,7 +9,7 @@ interface MainProps {
 
 export function Main(props: MainProps) {
   const { pokemon: initialPokemon } = props
-  const { data, error, reset, isValidating } = usePokemon(initialPokemon)
+  const { data, next, error, reset, isValidating } = usePokemon(initialPokemon)
 
   if (error) {
     return (
