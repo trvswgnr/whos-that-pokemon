@@ -1,3 +1,3 @@
 export * from './compareStrings'
 export * from './fetchPokemon'
-export * from './sharedValue'
+export * from './SharedData'
