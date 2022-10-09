@@ -9,8 +9,8 @@ interface UsePokemonResponse {
   reset: () => Promise<void>
 }
 
-export function usePokemon(): UsePokemonResponse {
-  const [data, setData] = useState<Pokemon|undefined>(undefined)
+export function usePokemon(initialData?: Pokemon): UsePokemonResponse {
+  const [data, setData] = useState<Pokemon|undefined>(initialData)
   const [error, setError] = useState<Error|undefined>(undefined)
   const [isValidating, setIsValidating] = useState(false)
 

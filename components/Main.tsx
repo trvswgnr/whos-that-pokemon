@@ -9,8 +9,7 @@ interface MainProps {
 
 export function Main(props: MainProps) {
   const { pokemon: initialPokemon } = props
-  const { data: pokemon, error, reset, isValidating } = usePokemon()
-  const [data, setData] = useState<Pokemon|undefined>(initialPokemon)
+  const { data, error, reset, isValidating } = usePokemon(initialPokemon)
 
   if (error) {
     return (
@@ -30,9 +29,6 @@ export function Main(props: MainProps) {
   }
 
   return (
-    <Game {...{ pokemon: data, error }} reset={() => {
-      reset()
-      setData(pokemon)
-    }} />
+    <Game {...{ pokemon: data, error, reset }} />
   )
 }
