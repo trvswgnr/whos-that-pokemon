@@ -10,19 +10,17 @@ interface UsePokemonResponse {
 }
 
 export function usePokemon(initialData?: Pokemon): UsePokemonResponse {
-  const [data, setData] = useState<Pokemon|undefined>(undefined)
+  const [data, setData] = useState<Pokemon|undefined>(initialData)
   const [error, setError] = useState<Error|undefined>(undefined)
   const [isValidating, setIsValidating] = useState(false)
-  const [next, setNext] = useState<Pokemon|undefined>(initialData)
+  const [next, setNext] = useState<Pokemon|undefined>(undefined)
 
   const reset = useCallback(async () => {
     setIsValidating(true)
     try {
       setData(next)
-      console.log('data', next?.name)
       const data = await fetchPokemon()
       setNext(data)
-      console.log('next', data?.name)
     } catch (error) {
       setError(error as Error)
     } finally {
@@ -30,7 +28,15 @@ export function usePokemon(initialData?: Pokemon): UsePokemonResponse {
     }
   }, [next])
 
-  useMemo(() => reset(), [])
+  // set the initial data for next
+  useMemo(async () => {
+    try {
+      const next = await fetchPokemon()
+      setNext(next)
+    } catch (error) {
+      setError(error as Error)
+    }
+  }, [])
 
   return { data, next, isValidating, error, reset }
 }

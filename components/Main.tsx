@@ -1,7 +1,6 @@
 import { Game } from '~/components'
 import { usePokemon } from '~/hooks'
 import Image from 'next/image'
-import { useState } from 'react'
 
 interface MainProps {
   pokemon: Pokemon
@@ -9,7 +8,7 @@ interface MainProps {
 
 export function Main(props: MainProps) {
   const { pokemon: initialPokemon } = props
-  const { data, next, error, reset, isValidating } = usePokemon(initialPokemon)
+  const { data, error, reset, isValidating } = usePokemon(initialPokemon)
 
   if (error) {
     return (
