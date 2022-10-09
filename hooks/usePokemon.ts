@@ -1,6 +1,5 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { fetchPokemon } from '~/lib'
-import { sharedFetchHook } from '~/lib'
 
 interface UsePokemonResponse {
   data?: Pokemon,
@@ -28,8 +27,3 @@ export function usePokemon(initialData?: Pokemon): UsePokemonResponse {
 
   return { data, isValidating, error, reset }
 }
-
-/**
- * rewrite usePokemon to use sharedHook
- */
-export const usePokemonShared = sharedFetchHook(fetchPokemon)

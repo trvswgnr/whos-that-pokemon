@@ -1,2 +1,2 @@
 export * from './usePokemon'
-export * from './useScore'
+export * from './useStreak'
