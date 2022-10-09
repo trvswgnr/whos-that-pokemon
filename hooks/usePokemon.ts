@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { fetchPokemon } from '~/lib'
 import { sharedFetchHook } from '~/lib'
 
@@ -25,10 +25,6 @@ export function usePokemon(): UsePokemonResponse {
       setIsValidating(false)
     }
   }, [])
-
-  useEffect(() => {
-    reset()
-  }, [reset])
 
   return { data, isValidating, error, reset }
 }
