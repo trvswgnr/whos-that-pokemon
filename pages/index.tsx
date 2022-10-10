@@ -28,7 +28,12 @@ export default function Home(props: HomeProps) {
   )
 }
 
-export async function getServerSideProps({ req }: GetServerSidePropsContext) {
+export async function getServerSideProps({ req, res }: GetServerSidePropsContext) {
+  res.setHeader(
+    'Cache-Control',
+    'public, max-age=31536000, immutable'
+  )
+
   const pokemon = await fetchPokemon(req)
   return {
     props: {
