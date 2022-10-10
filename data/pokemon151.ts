@@ -1,5 +1,5 @@
 function getImageUrl(id: number) {
-  return `/images/webp/${id}.webp`
+  return `/images/pokemon/${id}.webp`
   // return `https://cdn.jsdelivr.net/gh/PokeAPI/sprites/sprites/pokemon/other/official-artwork/${id}.png`
 }
 
