@@ -5,3 +5,15 @@ declare module 'turnstone' {
   const Turnstone: React.FC<TurnstoneProps>
   export default Turnstone
 }
+
+
+declare module 'fluent-ffmpeg'
+declare module 'request'
+
+export global {
+  export interface Pokemon {
+    id:     number
+    name:   string
+    image:  string
+  }
+}

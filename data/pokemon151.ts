@@ -1,5 +1,6 @@
 function getImageUrl(id: number) {
-  return `https://cdn.jsdelivr.net/gh/PokeAPI/sprites/sprites/pokemon/other/official-artwork/${id}.png`
+  return `/images/webp/${id}.webp`
+  // return `https://cdn.jsdelivr.net/gh/PokeAPI/sprites/sprites/pokemon/other/official-artwork/${id}.png`
 }
 
 const pokemonData: Partial<Pokemon>[] = [
