@@ -1,9 +1,8 @@
-import { ReactElement, useEffect, useRef, useState, type MouseEventHandler } from 'react'
+import { useEffect, useRef, useState, type MouseEventHandler } from 'react'
 import colors from 'tailwindcss/colors'
 import { isCloseMatch } from '~/lib'
 import { Results, Guess } from '~/components'
 import { useStreak } from '~/hooks'
-import { default as NextImage } from 'next/image'
 
 interface GameProps {
   pokemon: Pokemon
