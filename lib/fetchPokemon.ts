@@ -1,9 +1,11 @@
-import { pokemon } from '~/data/pokemon151'
+import { GetServerSidePropsContext } from 'next'
+import { getBaseUrl } from './util'
 
-async function fetchPokemon(): Promise<Pokemon> {
+async function fetchPokemon(req?: GetServerSidePropsContext['req']) {
+  // get random pokemon id between 1 and 151
   const randomPokemonId = Math.floor(Math.random() * 151) + 1
 
-  const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://whos-that-pokemon-alpha.vercel.app'
+  const baseUrl = getBaseUrl(req)
 
   const response = await fetch(`${baseUrl}/api/pokemon/${randomPokemonId}`)
 

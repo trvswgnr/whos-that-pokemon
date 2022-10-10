@@ -1,4 +1,4 @@
-import { InferGetServerSidePropsType } from 'next'
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { Container, Main, Footer, Burst, StreakCount } from '~/components'
 import { fetchPokemon } from '~/lib'
 
@@ -28,8 +28,8 @@ export default function Home(props: HomeProps) {
   )
 }
 
-export async function getServerSideProps() {
-  const pokemon = await fetchPokemon()
+export async function getServerSideProps({ req }: GetServerSidePropsContext) {
+  const pokemon = await fetchPokemon(req)
   return {
     props: {
       pokemon
