@@ -36,13 +36,6 @@ export function Game(props: GameProps) {
   }
 
   const name = pokemon.name.split(' ').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
-  const id = pokemon.id
-  const sprites = pokemon.sprites.other
-
-
-  if (!sprites) {
-    throw new Error('No sprites found for pokemon with ID: ' + id)
-  }
 
   const canvasStrokeRef = useRef<HTMLCanvasElement>(null)
   const canvasFillRef = useRef<HTMLCanvasElement>(null)
@@ -55,7 +48,7 @@ export function Game(props: GameProps) {
     }
     const canvasStroke = canvasStrokeRef.current
     const canvasFill = canvasFillRef.current
-    const image: string = sprites['official-artwork'].front_default
+    const image: string = pokemon.image
 
     const img = new Image()
 
@@ -124,7 +117,7 @@ export function Game(props: GameProps) {
       context.globalCompositeOperation = 'destination-in'
       context.drawImage(image, 0, 0)
     }
-  }, [submitted, isCorrect, sprites])
+  }, [submitted, isCorrect, pokemon.image])
 
   function judge() {
     const guess = nameInput.toLowerCase()

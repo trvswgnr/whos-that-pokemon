@@ -1,5 +1,5 @@
 export global {
-  export interface Pokemon {
+  export interface PokeApiResponse {
     abilities:                Ability[];
     base_experience:          number;
     forms:                    Species[];
@@ -189,4 +189,9 @@ export global {
     stat:      Species;
   }
 
+  export interface Pokemon {
+    id:     number;
+    name:   string;
+    image:  string;
+  }
 }
