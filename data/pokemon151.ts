@@ -1,4 +1,8 @@
-const pokemon = [
+function getImageUrl(id: number) {
+  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
+}
+
+const pokemonData: Partial<Pokemon>[] = [
   {
     id: 1,
     name: 'Bulbasaur'
@@ -605,4 +609,10 @@ const pokemon = [
   }
 ]
 
-export default pokemon
+export const pokemon: Pokemon[] = pokemonData.map((v, i) => {
+  return {
+    id: i + 1,
+    name: v.name!,
+    image: getImageUrl(v.id!)
+  }
+})

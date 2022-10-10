@@ -1,20 +1,23 @@
-import pokemon from '~/data/pokemon151'
+import { pokemon } from '~/data/pokemon151'
 
 async function fetchPokemon(): Promise<Pokemon> {
   const randomPokemonId = Math.floor(Math.random() * 151) + 1
-  const pokemonData = pokemon.find(p => p.id === randomPokemonId)
 
-  if (!pokemonData) {
+  const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://whos-that-pokemon-alpha.vercel.app'
+
+  const response = await fetch(`${baseUrl}/api/pokemon/${randomPokemonId}`)
+
+  const data = await response.json()
+
+  if (data.error) {
+    throw new Error(data.error)
+  }
+
+  if (!data) {
     throw new Error('Pokemon not found')
   }
 
-  const { id, name } = pokemonData
-
-  return {
-    id,
-    name,
-    image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData.id}.png`
-  }
+  return data
 }
 
 export { fetchPokemon }
