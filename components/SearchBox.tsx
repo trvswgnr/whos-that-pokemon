@@ -1,5 +1,5 @@
 import Turnstone from 'turnstone'
-import pokemon from '~/data/pokemon151'
+import { pokemon } from '~/data/pokemon151'
 import { isCloseMatch } from '~/lib'
 
 const styles = {
